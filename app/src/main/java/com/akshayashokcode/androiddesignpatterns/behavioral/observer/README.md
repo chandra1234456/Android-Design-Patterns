@@ -37,3 +37,18 @@ The Observer Pattern is a behavioral design pattern that defines a one-to-many d
 interface Observer {
     fun update(message: String)
 }
+
+
+## Implementation review & improvements
+- `Observer` is now a `fun interface`, so a lambda can be registered.
+- `ConcreteSubject` uses `CopyOnWriteArrayList`: an observer can unregister itself inside `update()` without a `ConcurrentModificationException`, and registration from other threads is safe.
+- `registerObserver` is idempotent (no duplicate notifications); `message` is `@Volatile`.
+- Covered by `PatternsTest.observer_selfRemovalDuringNotifyIsSafe`.
+
+## Android usage
+`LiveData`, `StateFlow`/`SharedFlow`, `BroadcastReceiver`, `View.OnClickListener`, `RxJava`. Lifecycle-aware observers (`LifecycleOwner`) solve the "forgot to unregister" leak.
+
+## Interview highlights
+- **Observer vs Pub/Sub?** Observer: subject knows its observers directly. Pub/Sub: a broker decouples publisher and subscriber (EventBus, Kafka).
+- **LiveData vs StateFlow?** LiveData is lifecycle-aware and Android-only; StateFlow is Kotlin-native, always has a value, needs `repeatOnLifecycle` to be lifecycle-safe.
+- **Common bug:** memory leaks from un-removed observers; notifying on the wrong thread.

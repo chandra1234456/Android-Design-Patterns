@@ -47,3 +47,19 @@ In `MainActivity`, we access the singleton instance of `AppConfig` using `AppCon
 - **Limit Scope**: Avoid making the Singleton globally accessible if it’s not necessary. Use dependency injection to manage singletons where possible.
 
 By following these usage considerations and best practices, you can effectively implement and utilize the Singleton Pattern in your Android applications, ensuring efficient and maintainable code.
+
+
+## Implementation review & improvements
+| Variant | Lazy | Thread-safe | Cost | Notes |
+|---|---|---|---|---|
+| `KotlinSingleton` (`object`) | Yes (on first access) | Yes (JVM class init) | None | **Preferred in Kotlin** |
+| `ClassicSingleton` | Yes | Yes (`@Synchronized`) | Lock on every call | Baseline |
+| `ThreadSafeSingleton` | Yes | Yes (double-checked, `@Volatile`) | Lock only on first call | Needed when constructor takes args |
+| `BillPughSingleton` | Yes | Yes (holder class) | None | **Fixed**: instance was previously cached in a companion property, making it eager |
+| `AppConfig` | Yes | Yes | Lock only on first call | **Fixed**: removed per-call lock and `!!`; `configValue` is `@Volatile` |
+
+## Interview highlights
+- **Why `@Volatile` in double-checked locking?** Prevents another thread seeing a partially constructed object (instruction reordering).
+- **Easiest Kotlin singleton?** `object`. Use `by lazy` for lazy init with arguments.
+- **Downsides:** hidden global state, hard to unit test, can leak an `Activity` `Context` - store `applicationContext` only. Prefer Dependency Injection (Hilt `@Singleton`).
+- **Can reflection/serialization break it?** Yes for private-constructor classes; `enum`/`object` are safest.

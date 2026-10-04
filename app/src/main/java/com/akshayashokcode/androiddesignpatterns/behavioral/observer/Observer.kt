@@ -1,5 +1,5 @@
 package com.akshayashokcode.androiddesignpatterns.behavioral.observer
 
-interface Observer {
+fun interface Observer {
     fun update(message: String)
 }
