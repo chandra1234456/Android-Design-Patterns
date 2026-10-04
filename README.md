@@ -1,6 +1,34 @@
 # Android Design Patterns
 
-This repository contains a comprehensive collection of design patterns implemented in Kotlin for Android development. The design patterns are categorized into three main types: Creational, Structural, and Behavioral. Each pattern includes explanations and example code to demonstrate how to implement and use the pattern effectively in an Android application.
+[![CI](https://github.com/chandra1234456/Android-Design-Patterns/actions/workflows/ci.yml/badge.svg)](https://github.com/chandra1234456/Android-Design-Patterns/actions/workflows/ci.yml)
+![Kotlin](https://img.shields.io/badge/Kotlin-7F52FF?logo=kotlin&logoColor=white)
+![Android](https://img.shields.io/badge/Android-minSdk%2024-3DDC84?logo=android&logoColor=white)
+
+24 design patterns implemented in Kotlin for Android, each with a plain-language explanation, real Android examples, unit tests, and a runnable demo app that shows every pattern's output on screen.
+
+**Start here:** [Design Patterns Guide](docs/DESIGN_PATTERNS_GUIDE.md) - what each pattern is, when to use it, and where Android itself uses it.
+
+## Highlights
+- Creational, Structural, Behavioral and Architectural patterns (Singleton to Dependency Injection)
+- Improved implementations: lazy Bill Pugh singleton, thread-safe Observer, immutable validated Builder
+- Unit tests for every pattern (`PatternsTest`, `MorePatternsTest`)
+- Demo app: tap a pattern to run the real code and see its output
+
+## How to run
+1. Clone the repo and open it in Android Studio (Hedgehog or newer, JDK 17).
+2. Let Gradle sync, then press **Run** on an emulator or device (API 24+).
+3. Pick a pattern from the list to see what it does.
+
+Run the tests from a terminal:
+```bash
+./gradlew testDebugUnitTest
+```
+
+## Credits
+Based on [AkshayAshokCode/Android-Design-Patterns](https://github.com/AkshayAshokCode/Android-Design-Patterns) (Singleton and Observer originals). This version improves those two, adds the remaining patterns, tests, the guide and the demo app.
+
+## About
+Maintained by [Balachandra Dasari](https://github.com/chandra1234456), Android developer.
 
 ## Contents
 
